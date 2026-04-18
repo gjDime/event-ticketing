@@ -14,33 +14,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            <nav class="bg-white border-b border-gray-100">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
-                        <div class="flex items-center">
-                            <a href="{{ route('events.index') }}" class="text-xl font-bold text-gray-800">
-                                EventHub
-                            </a>
-                            <a href="{{ route('events.index') }}" class="ml-8 text-sm text-gray-600 hover:text-gray-900">Events</a>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            @auth
-                                @if(auth()->user()->is_admin)
-                                    <a href="{{ route('admin.dashboard') }}" class="text-sm text-gray-600 hover:text-gray-900">Admin</a>
-                                @endif
-                                <a href="{{ route('dashboard') }}" class="text-sm text-gray-600 hover:text-gray-900">Dashboard</a>
-                                <form method="POST" action="{{ route('logout') }}" class="inline">
-                                    @csrf
-                                    <button type="submit" class="text-sm text-gray-600 hover:text-gray-900">Log Out</button>
-                                </form>
-                            @else
-                                <a href="{{ route('login') }}" class="text-sm text-gray-600 hover:text-gray-900">Log In</a>
-                                <a href="{{ route('register') }}" class="text-sm bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Register</a>
-                            @endauth
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            @include('layouts.navigation')
 
             @isset($header)
                 <header class="bg-white shadow">
