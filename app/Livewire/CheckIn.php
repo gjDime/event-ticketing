@@ -39,6 +39,12 @@ class CheckIn extends Component
             return;
         }
 
+        if ($ticket->event->date->lt(now()->startOfDay())) {
+            $this->message = 'This event has already ended (' . $ticket->event->date->format('M d, Y') . ').';
+            $this->messageType = 'error';
+            return;
+        }
+
         $ticket->update(['checked_in_at' => now()]);
 
         $this->message = 'Successfully checked in! Event: ' . $ticket->event->title . ' | Email: ' . $ticket->user_email;

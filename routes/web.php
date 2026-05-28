@@ -3,6 +3,7 @@
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\AdminDashboard;
+use App\Livewire\Analytics;
 use App\Livewire\CheckIn;
 use App\Livewire\VisitorManagement;
 use App\Models\Event;
@@ -22,16 +23,21 @@ Route::get('/dashboard', function () {
         ->latest()
         ->get();
 
+    $ticketsByEvent = $myTickets->groupBy('event_id');
+
     $myEventIds = $myTickets->pluck('event_id')->unique();
 
-    $upcomingEvents = Event::where('date', '>=', now())
+    $upcomingEvents = Event::withCount([
+            'tickets as paid_count' => fn ($q) => $q->where('is_paid', true),
+        ])
+        ->where('date', '>=', now())
         ->whereNotIn('id', $myEventIds)
         ->orderBy('date')
         ->take(6)
         ->get();
 
     return view('dashboard', [
-        'myTickets' => $myTickets,
+        'ticketsByEvent' => $ticketsByEvent,
         'upcomingEvents' => $upcomingEvents,
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -46,6 +52,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/', AdminDashboard::class)->name('admin.dashboard');
     Route::get('/events/{event}/visitors', VisitorManagement::class)->name('admin.visitors');
     Route::get('/check-in', CheckIn::class)->name('admin.check-in');
+    Route::get('/analytics', Analytics::class)->name('admin.analytics');
 });
 
 require __DIR__.'/auth.php';

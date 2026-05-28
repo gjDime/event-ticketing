@@ -5,13 +5,12 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <x-admin-nav />
+
+    <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="mb-6 flex justify-between items-center">
+            <div class="mb-6">
                 <h3 class="text-lg font-semibold text-gray-900">Events Overview</h3>
-                <a href="{{ route('admin.check-in') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">
-                    Check-In Scanner
-                </a>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -32,7 +31,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $event->title }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $event->date->format('M d, Y') }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${{ number_format($event->price, 2) }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $event->tickets_count }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $event->paid_count }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $event->capacity }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <a href="{{ route('admin.visitors', $event) }}" class="text-indigo-600 hover:text-indigo-900">View Visitors</a>

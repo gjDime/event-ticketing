@@ -5,12 +5,10 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="mb-4">
-                <a href="{{ route('admin.dashboard') }}" class="text-indigo-600 hover:text-indigo-800">&larr; Back to Dashboard</a>
-            </div>
+    <x-admin-nav />
 
+    <div class="py-8">
+        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <h3 class="text-lg font-semibold mb-4">Scan or Enter Ticket Code</h3>

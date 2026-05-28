@@ -24,6 +24,8 @@ class Event extends Model
 
     public function availableTickets(): int
     {
-        return $this->capacity - $this->tickets()->where('is_paid', true)->count();
+        $paid = $this->paid_count ?? $this->tickets()->where('is_paid', true)->count();
+
+        return max(0, $this->capacity - (int) $paid);
     }
 }

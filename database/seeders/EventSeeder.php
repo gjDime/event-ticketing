@@ -48,7 +48,10 @@ class EventSeeder extends Seeder
         ];
 
         foreach ($events as $event) {
-            Event::create($event);
+            Event::firstOrCreate(
+                ['title' => $event['title']],
+                $event
+            );
         }
     }
 }
